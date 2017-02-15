@@ -24,20 +24,16 @@ class solve
 			change=false;
 			while(s.find(')',0)!=string::npos)
 			{
-//cout<<"into while"<<endl; 
 				pr=s.find(')',0);
 				pl=s.rfind('(',pr-1);
 				if (s[pl-1]=='/') 
 				{
 					change=true;//预防5/(1/2)这样的 
 				} 
-//cout<<"pl&pr="<<pl<<","<<pr<<endl;
-//cout<<change<<endl; 
 				setQues(s.substr(pl+1,pr-pl-1));
 				init();
 				s.replace(pl,pr-pl+1,count()); 
 				change=false;
-//cout<<"s="<<s<<endl;
 			}
 			//最后的无括号运算 
 			setQues(s);
@@ -67,7 +63,6 @@ class solve
 						i=1;
 					}
 				} 
-//cout<<num[0]<<","<<num[1]<<endl;
 				//假分数 
 				if (num[0]>num[1]||-num[0]>num[1])
 				{
@@ -153,12 +148,10 @@ class solve
 						fu.append(1,'-');
 						
 					}
-//cout<<"fu:"<<fu<<endl;
 				}
 				else
 				{
 					
-                //fix :运算过程会出现大于10的数
 					string shu; 
 					 
 					while (ques[i]>='0')
@@ -169,7 +162,6 @@ class solve
 					i--;
 					num.push_back(atoi(shu.c_str()));	
 					
-//cout<<"numAdd:"<<num.back()<<endl;				
 				}
 			}
 			
@@ -223,12 +215,9 @@ class solve
 				}
 			}
 
-//cout<<"fu:"<<fu<<endl;
 
-//cout<<num[0]<<num[1]<<num[2]<<num[3]<<endl;	
 
 			//加减运算
-//cout<<"num[2]before="<<num[2]<<endl;			
 			while(fu.find('+',0)!=string::npos||fu.find('-',0)!=string::npos)
 			{
 				p1=fu.find('+',0);
@@ -237,15 +226,12 @@ class solve
 				if (p2==string::npos) p2=10000;
 				//加号在前
 				
-//cout<<"fu:"<<fu<<endl; 
-//cout<<"p1,p2="<<p1<<" "<<p2<<endl;
 				if(p1<p2)
 				{
 					//都是分数 
 					if (p1!=0&&p1!=fu.size()-1&&fu.at(p1-1)=='/'&&fu.at(p1+1)=='/')
 					{
 						
-//cout<<"both fenshu "<<endl; 
 
 						num[p1-1]=num[p1-1]*num[p1+2]+num[p1]*num[p1+1];
 						num[p1]=num[p1]*num[p1+2]; 
@@ -253,33 +239,30 @@ class solve
 						num.erase(num.begin()+p1+1);
 						fu.erase(p1,1);
 						fu.erase(p1,1);
-//cout<<"fu,hou:"<<fu<<endl;
 					}
 					else
 					{
 						//都不是分数 
 						if (fu[p1-1]!='/'&&fu[p1+1]!='/')
 						{
-//cout<<"test"<<endl<<"num[0]:"<<num[0]<<" num[1]:"<<num[1]<<endl<<"p1="<<p1<<endl;
 							num[p1]=num[p1+1]+num[p1];
 							num.erase(num.begin()+p1+1);
-							fu.erase(p1,1);
-//cout<<"test2"<<endl<<"num[0]:"<<num[0]<<" num[1]:"<<num[1]<<endl<<"p1="<<p1<<endl;
+						
 						}
 						//其中一个是分数
 						if (fu[p1-1]=='/')
 						{
 							num[p1-1]=num[p1-1]+num[p1]*num[p1+1];
 							num.erase(num.begin()+p1+1);
-							fu.erase(p1,1);
+							
 						}
 						if (fu[p1+1]=='/')
 						{
-//cout<<"singel fenshu:p1="<<p1<<" num[p1]="<<num[p1]<<endl;
 							num[p1+1]=num[p1+1]+num[p1]*num[p1+2];
 							num.erase(num.begin()+p1);
-							fu.erase(p1,1);
+							
 						} 
+						fu.erase(p1,1);
 					}
 
 				}
@@ -304,7 +287,7 @@ class solve
 						{
 							num[p2]=num[p2]-num[p2+1];
 							num.erase(num.begin()+p2+1);
-							//fu.erase(p2,1);
+							
 
 						}
 						//其中一个是分数
@@ -312,16 +295,14 @@ class solve
 						{
 							num[p2-1]=num[p2-1]-num[p2]*num[p2+1];
 							num.erase(num.begin()+p2+1);
-							//fu.erase(p2,1);
+							
 						}
 						if (fu[p2+1]=='/')
 						{
 							num[p2+1]=num[p2]*num[p2+2]-num[p2+1];
 
 							num.erase(num.begin()+p2);
-//cout<<"num[1]="<<num[1]<<endl<<"fu:"<<fu<<endl;
-							//fu.erase(p2,1);
-//cout<<"fu:"<<fu<<endl;
+							
 						}
 						fu.erase(p2,1); 
 					}
@@ -330,15 +311,11 @@ class solve
 			} 
 			
 			//返回
-//cout<<"fu:"<<fu<<endl;
 			string re;
 			char ch[10];
-//cout<<"num[0]"<<num[0]<<endl;
 			memset(ch,0,sizeof(ch));
 			sprintf(ch,"%d",num[0]);
 			re.append(ch);
-//cout<<"re:"<<re<<endl<<num[0]<<endl;
-//cout<<"fu[0]="<<fu[0]<<endl;
 			if(fu[0]=='/') 
 			{
 				if (change)
@@ -353,7 +330,6 @@ class solve
 				memset(pa,0,sizeof(pa));
 				sprintf(pa,"%d",num[1]);
 				re.append(pa);
-//cout<<re<<endl;
 			}
 			return re;
 		}
