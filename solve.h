@@ -19,7 +19,7 @@ class solve
 		{
 			int pr;//右括号指针
 			int pl;//左括号指针 
- 
+			int i;
 			//括号去除 
 			change=false;
 			while(s.find(')',0)!=string::npos)
@@ -43,8 +43,10 @@ class solve
 			string re;
 			char ch[10];
 			//化为真分数
+
      		if (fu[0]=='/')
 			{
+
 				if (num[0]%num[1]==0)
 				{
 					num[0]=num[0]/num[1];
@@ -54,14 +56,19 @@ class solve
 					return re;
 				}
 				//约分 
-				for(int i=1;i<=num[0];i++)
+				int up=num[0];
+				if (num[0]<0) up=0-up;
+				for( i=1;i<=up;i++)
 				{
+
 					if (num[0]%i==0&&num[1]%i==0)
 					{
 						num[0]=num[0]/i;
+						up=up/i;
 						num[1]=num[1]/i;
 						i=1;
 					}
+
 				} 
 				//假分数 
 				if (num[0]>num[1]||-num[0]>num[1])
