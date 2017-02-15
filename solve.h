@@ -125,15 +125,20 @@ class solve
 		{
 			//清空 
 			num.clear();
-			fu.clear(); 
-						
+			fu.clear();
+			int fuhao=-1; 
+			int j=0;			
 			int i;
-			for (i=0;i<=ques.size();i++)
+			for (i=0;i<ques.size();i++)
 			{
 				
 				
 				if (ques[i]<'0')
 				{
+					if (ques[i-1]<'0'&&i>=1)
+					{
+						fuhao=j;
+					}
 					//运算符添加 
 					if (ques[i]=='*')
 					{
@@ -155,6 +160,7 @@ class solve
 						fu.append(1,'-');
 						
 					}
+					j++;
 				}
 				else
 				{
@@ -171,6 +177,12 @@ class solve
 					
 				}
 			}
+			if (fuhao!=-1)
+			{
+				fu.erase(fuhao,1);
+				num[fuhao]=0-num[fuhao];
+			}
+			
 			
 		} 
 		
@@ -316,7 +328,14 @@ class solve
 				}
 				
 			} 
-			
+			if (fu[0]=='/')
+			{
+				if (num[1]<0)
+				{
+					num[1]=0-num[1];
+					num[0]=0-num[0];
+				}
+			}
 			//返回
 			string re;
 			char ch[10];
