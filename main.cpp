@@ -4,6 +4,7 @@
 #include<ctime>
 #include <cstdlib>
 #include<sstream>
+#include<string.h>
 #include"solve.h"
 using namespace std;
 int true_Total=0,wrong_Total=0;
@@ -28,19 +29,48 @@ char symbol (int n)
 
 int main()
 {
-	cout<<"中文版请输入0"<<endl;
-	cout<<"English Edition Please Inter 1"<<endl;
-	int theLanguage;
-	cin >> theLanguage;
+	FILE *f;
+	char str[10][1000];
+	f=fopen("language","r");
+	while(fgets(str[0],1000,f)!=NULL){
+		printf("%s",str[0]); 
+	}
+	char lan[100];
+	scanf("%s",lan);
+	fclose(f);
+	f=fopen(lan,"r");
+	while(f==NULL){
+		printf("目前不支持此语言，请重新输入:");
+		scanf("%s",lan);
+		f=fopen(lan,"r");
+	}
+	
+	fgets(str[1],1000,f);
+	fgets(str[2],1000,f);
+	fgets(str[3],1000,f);
+	fgets(str[4],1000,f);
+	fgets(str[5],1000,f);
+	fgets(str[6],1000,f);
+	fgets(str[7],1000,f);
+	fgets(str[8],1000,f);
+	fgets(str[9],1000,f);
+	int n=strlen(str[2]);
+	str[2][n-1]='\0';
+	
+	
+	int theLanguage=0;
+	
 	if (theLanguage==0)
 	{
-		cout<<"欢迎您使用此\'软件\'，这是一款能随机生成0-10的四则运算的\'软件\'。请输入一个数字，我们将为您生成多少题目。每生成一个题目您需要输入一个答案，我们将为您判断对错。温馨提示：输入的答案需要是整数或者分数。如果想提前结束训练请输入exit"<<endl;
+		
+		cout<<str[1]<<endl;
 	}
 	if (theLanguage==1)
 	{
 		cout<<"Welcome to use this \'software\'，This is a randomly generated 0-10 arithmetic of the \'software\'. Please enter a number, how many questions we will be generated for you.Each generated a topic you need to enter an answer, we will be wrong for you. Warm prompt: the answer to the input needs to be an integer or scores.If you want to be the end of the training in advance, please enter exit"<<endl;
 	}
 	int howMany;//howMany 是用户输入的，它代表‘软件’生成多少题目。
+	
 	cin >> howMany; 
 	
 	int number[5];
@@ -49,7 +79,8 @@ int main()
 	{
 		if(theLanguage==0)
 		{
-			cout <<"第 "<<i<<" 题:   "; 
+			
+			cout <<str[2]<<i<<endl;; 
 		}
 		if(theLanguage==1)
 		{
@@ -124,7 +155,7 @@ int main()
 		string theQuestion;
 		if (brackets==1) 
 		theQuestion="("+theNumber[1]+a_1[1]+theNumber[2]+")"+a_1[2]+theNumber[3]+a_1[3]+theNumber[4];
-		else if (brackets==2) 
+		else if (brackets==2)  
 		theQuestion=theNumber[1]+a_1[1]+"("+theNumber[2]+a_1[2]+theNumber[3]+")"+a_1[3]+theNumber[4];
 		else if (brackets==3) 
 		theQuestion=theNumber[1]+a_1[1]+theNumber[2]+a_1[2]+"("+theNumber[3]+a_1[3]+theNumber[4]+")";
@@ -164,24 +195,24 @@ int main()
 		}
 		if (theLanguage==0)
         {
-        	cout <<"请输入您的答案：";
+        	cout <<str[4];
         	cin>>yourAnswer;
         	cout<<endl;
         	trueAnswer=a.getAnswer(theQuestion);
-		    cout<<"正确答案是："<<trueAnswer<<endl;
+		    cout<<str[5]<<trueAnswer<<endl;
 		    if (yourAnswer=="exit")
 			{
 				break;
 			}
 		    if (yourAnswer==trueAnswer)
 		    {
-		    	cout<<"真厉害，你做对了！"<<endl;
+		    	cout<<str[6]<<endl;
 		    	cout<<endl; 
 		    	true_Total++;
 			}
 			if (yourAnswer!=trueAnswer)
 			{
-				cout<<"真抱歉，您做错了呢..."<<endl;
+				cout<<str[7]<<endl;
 				cout<<endl; 
 				wrong_Total++;
 			}
@@ -191,8 +222,8 @@ int main()
 	
 	if (theLanguage==0)
 	{
-		cout<<"正确的题数："<<true_Total<<endl;
-		cout<<"错误的题数："<<wrong_Total<<endl; 
+		cout<<str[8]<<true_Total<<endl;
+		cout<<str[9]<<wrong_Total<<endl; 
 	}
 	if (theLanguage==1)
 	{
