@@ -22,6 +22,7 @@ class solve
 			int i;
 			//À¨ºÅÈ¥³ı 
 			change=false;
+			//cout<<"question s:"<<s<<endl;
 			while(s.find(')',0)!=string::npos)
 			{
 				pr=s.find(')',0);
@@ -103,7 +104,7 @@ class solve
 					return re;
 				}
 			}
-			 
+			 //cout<<"answer:"<<answer<<endl;
 			return answer;
 		}
 		
